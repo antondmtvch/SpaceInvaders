@@ -13,6 +13,7 @@ public class SpaceInvadersGame extends Game {
     public static final int HEIGHT = 64;
     private List<Star> stars;
     private EnemyFleet enemyFleet;
+    public static final int COMPLEXITY = 5;
 
     @Override
     public void initialize() {
