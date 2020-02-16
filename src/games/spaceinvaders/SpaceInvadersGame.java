@@ -20,6 +20,11 @@ public class SpaceInvadersGame extends Game {
         createGame();
     }
 
+    @Override
+    public void onTurn(int step) {
+        drawScene();
+    }
+
     private void createGame() {
         createStars();
         drawScene();
