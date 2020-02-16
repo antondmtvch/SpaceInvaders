@@ -2,6 +2,8 @@ package games.spaceinvaders.gameobjects;
 
 import com.javarush.engine.cell.*;
 
+import java.util.Arrays;
+
 public class GameObject {
 
     public double x;
@@ -27,5 +29,16 @@ public class GameObject {
                 game.setCellValueEx((int) x + j, (int) y + i, Color.values()[matrix[i][j]], "");
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "GameObject{" +
+                "x=" + x +
+                ", y=" + y +
+                ", matrix=" + Arrays.toString(matrix) +
+                ", height=" + height +
+                ", width=" + width +
+                '}';
     }
 }
