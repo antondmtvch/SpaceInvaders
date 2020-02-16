@@ -11,14 +11,16 @@ public class EnemyShip extends Ship {
     }
 
     public void move(Direction direction, double speed) {
-        if (direction == Direction.RIGHT) {
-            this.x = x + speed;
-        }
-        if (direction == Direction.LEFT) {
-            this.x = x - speed;
-        }
-        if (direction == Direction.DOWN) {
-            this.y = y + 2;
+        switch (direction) {
+            case RIGHT:
+                this.x = x + speed;
+                break;
+            case LEFT:
+                this.x = x - speed;
+                break;
+            case DOWN:
+                this.y = y + 2.0;
+                break;
         }
     }
 }
