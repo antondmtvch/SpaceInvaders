@@ -34,6 +34,13 @@ public class EnemyFleet {
         ships.forEach(enemyShip -> { enemyShip.draw(game); });
     }
 
+    public Bullet fire(Game game) {
+        if (ships.size() == 0) return null;
+        int shotProbability = game.getRandomNumber(100 / SpaceInvadersGame.COMPLEXITY);
+        if (shotProbability > 0) return null;
+        return ships.get(game.getRandomNumber(ships.size())).fire();
+    }
+
     private double getLeftBorder() {
         final double[] minX = {ships.get(0).x};
         ships.forEach(enemyShip -> {
