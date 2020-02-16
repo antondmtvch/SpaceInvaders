@@ -32,4 +32,9 @@ public class EnemyFleet {
             enemyShip.draw(game);
         }
     }
-}
+
+    private double getLeftBorder() {
+        List<EnemyShip> copyOfShips = new ArrayList<>(ships);
+        copyOfShips.sort(Comparator.comparing(s -> s.x));
+        return copyOfShips.get(0).x;
+    }
