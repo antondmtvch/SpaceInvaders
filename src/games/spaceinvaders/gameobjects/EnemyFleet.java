@@ -4,6 +4,7 @@ import com.javarush.engine.cell.Game;
 import games.spaceinvaders.ShapeMatrix;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EnemyFleet {
@@ -38,3 +39,13 @@ public class EnemyFleet {
         copyOfShips.sort(Comparator.comparing(s -> s.x));
         return copyOfShips.get(0).x;
     }
+
+    private double getRightBorder() {
+        List<EnemyShip> copyOfShips = new ArrayList<>(ships);
+        for (EnemyShip enemyShip : copyOfShips) {
+            enemyShip.x = enemyShip.x + enemyShip.width;
+        }
+        copyOfShips.sort(Comparator.comparing(s -> s.x));
+        return copyOfShips.get(copyOfShips.size() - 1).x;
+    }
+}
