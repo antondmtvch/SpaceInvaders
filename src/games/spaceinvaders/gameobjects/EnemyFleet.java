@@ -1,10 +1,11 @@
 package games.spaceinvaders.gameobjects;
 
 import com.javarush.engine.cell.Game;
+import games.spaceinvaders.Direction;
 import games.spaceinvaders.ShapeMatrix;
+import games.spaceinvaders.SpaceInvadersGame;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class EnemyFleet {
@@ -13,6 +14,7 @@ public class EnemyFleet {
     private static final int COLUMNS_COUNT = 10;
     private static final int STEP = ShapeMatrix.ENEMY.length + 1;
     private List<EnemyShip> ships;
+    private Direction direction = Direction.RIGHT;
 
     public EnemyFleet() {
         createShips();
@@ -29,23 +31,48 @@ public class EnemyFleet {
     }
 
     public void draw(Game game) {
-        for (EnemyShip enemyShip : ships) {
-            enemyShip.draw(game);
-        }
+        ships.forEach(enemyShip -> { enemyShip.draw(game); });
     }
 
     private double getLeftBorder() {
-        List<EnemyShip> copyOfShips = new ArrayList<>(ships);
-        copyOfShips.sort(Comparator.comparing(s -> s.x));
-        return copyOfShips.get(0).x;
+        final double[] minX = {ships.get(0).x};
+        ships.forEach(enemyShip -> {
+            if (enemyShip.x < minX[0]) minX[0] = enemyShip.x;
+        });
+        return minX[0];
     }
 
     private double getRightBorder() {
-        List<EnemyShip> copyOfShips = new ArrayList<>(ships);
-        for (EnemyShip enemyShip : copyOfShips) {
-            enemyShip.x = enemyShip.x + enemyShip.width;
+        final double[] maxX = {ships.get(0).x};
+        ships.forEach(enemyShip -> {
+            double rightBorder = enemyShip.x + enemyShip.width;
+            if (rightBorder > maxX[0]) maxX[0] = rightBorder;
+        });
+        return maxX[0];
+    }
+
+    private double getSpeed() {
+        return Math.min(2.0, 3.0 / ships.size());
+    }
+
+    public void move() {
+        if (ships.size() > 0) {
+            if (direction == Direction.LEFT && getLeftBorder() < 0) {
+                direction = Direction.RIGHT;
+                ships.forEach(enemyShip -> {
+                    enemyShip.move(Direction.DOWN, getSpeed());
+                });
+            }
+            if (direction == Direction.RIGHT && getRightBorder() > SpaceInvadersGame.WIDTH) {
+                direction = Direction.LEFT;
+                ships.forEach(enemyShip -> {
+                    enemyShip.move(Direction.DOWN, getSpeed());
+                });
+            } else {
+                ships.forEach(enemyShip -> {
+                    enemyShip.move(direction, getSpeed());
+                });
+            }
         }
-        copyOfShips.sort(Comparator.comparing(s -> s.x));
-        return copyOfShips.get(copyOfShips.size() - 1).x;
     }
 }
