@@ -27,11 +27,14 @@ public class SpaceInvadersGame extends Game {
 
     private void createGame() {
         createStars();
+        enemyFleet = new EnemyFleet();
         drawScene();
+        this.setTurnTimer(40);
     }
 
     private void drawScene() {
         drawField();
+        enemyFleet.draw(this);
     }
 
     private void drawField() {
