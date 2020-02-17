@@ -15,6 +15,18 @@ public class EnemyShip extends Ship {
         return new Bullet(this.x + 1, this.y + this.height, Direction.DOWN);
     }
 
+    @Override
+    public void kill() {
+        if (isAlive) {
+            isAlive = false;
+            setAnimatedView(
+                    ShapeMatrix.KILL_ENEMY_ANIMATION_FIRST,
+                    ShapeMatrix.KILL_ENEMY_ANIMATION_SECOND,
+                    ShapeMatrix.KILL_ENEMY_ANIMATION_THIRD
+            );
+        }
+    }
+
     public void move(Direction direction, double speed) {
         switch (direction) {
             case RIGHT:
