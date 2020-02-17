@@ -82,4 +82,19 @@ public class EnemyFleet {
             }
         }
     }
+
+    public void verifyHit(List<Bullet> bullets) {
+        for (Bullet bullet : bullets) {
+            for (EnemyShip enemyShip : ships) {
+                if (bullet.isCollision(enemyShip) && enemyShip.isAlive && bullet.isAlive) {
+                    enemyShip.kill();
+                    bullet.kill();
+                }
+            }
+        }
+    }
+
+    public void deleteHiddenShips() {
+        ships.removeIf(enemyShip -> !enemyShip.isVisible());
+    }
 }
