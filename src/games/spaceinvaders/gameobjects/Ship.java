@@ -6,6 +6,12 @@ public class Ship extends GameObject {
         super(x, y);
     }
 
+    @Override
+    public void draw(Game game) {
+        super.draw(game);
+        this.nextFrame();
+    }
+
     public void setStaticView(int[][] viewFrame) {
         super.setMatrix(viewFrame);
     }
