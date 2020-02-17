@@ -55,6 +55,11 @@ public class SpaceInvadersGame extends Game {
     @Override
     public void onTurn(int step) {
         moveSpaceObjects();
+        check();
+        Bullet bullet = enemyFleet.fire(this);
+        if (bullet != null) {
+            enemyBullets.add(bullet);
+        }
         drawScene();
     }
 
@@ -67,14 +72,22 @@ public class SpaceInvadersGame extends Game {
 
     private void createGame() {
         createStars();
+        isGameStopped = false;
+        animationsCount = 0;
         enemyFleet = new EnemyFleet();
+        enemyBullets = new ArrayList<Bullet>();
+        playerBullets = new ArrayList<Bullet>();
+        playerShip = new PlayerShip();
         drawScene();
         setTurnTimer(40);
     }
 
     private void drawScene() {
         drawField();
+        playerShip.draw(this);
         enemyFleet.draw(this);
+        enemyBullets.forEach(bullet -> { bullet.draw(this); });
+        playerBullets.forEach(bullet -> { bullet.draw(this); });
     }
 
     private void drawField() {
@@ -83,9 +96,7 @@ public class SpaceInvadersGame extends Game {
                 setCellValueEx(i, j, Color.BLACK, "");
             }
         }
-        for (Star star : stars) {
-            star.draw(this);
-        }
+        stars.forEach(star -> { star.draw(this); });
     }
 
     private void createStars() {
@@ -97,5 +108,36 @@ public class SpaceInvadersGame extends Game {
 
     private void moveSpaceObjects() {
         enemyFleet.move();
+        enemyBullets.forEach(Bullet::move);
+        playerBullets.forEach(Bullet::move);
+        playerShip.move();
+    }
+
+    private void removeDeadBullets() {
+        enemyBullets.removeIf(bullet -> bullet.y >= HEIGHT - 1 || !bullet.isAlive);
+        playerBullets.removeIf(bullet -> bullet.y + bullet.height < 0 || !bullet.isAlive);
+    }
+
+    private void check() {
+        playerShip.verifyHit(enemyBullets);
+        enemyFleet.verifyHit(playerBullets);
+        enemyFleet.deleteHiddenShips();
+        removeDeadBullets();
+        if (!playerShip.isAlive) stopGameWithDelay();
+    }
+
+    private void stopGame(boolean isWin) {
+        isGameStopped = true;
+        stopTurnTimer();
+        if (isWin) {
+            showMessageDialog(Color.WHITE, "You Win!", Color.GREEN, 80);
+        } else {
+            showMessageDialog(Color.WHITE, "Game over", Color.RED, 80);
+        }
+    }
+
+    private void stopGameWithDelay() {
+        animationsCount += 1;
+        if (animationsCount >= 10) stopGame(playerShip.isAlive);
     }
 }
