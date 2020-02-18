@@ -43,7 +43,10 @@ public class Ship extends GameObject {
     }
 
     public void nextFrame() {
-        this.frameIndex += 1;
+        this.frameIndex++;
+        if (this.frameIndex >= this.frames.size() && this.loopAnimation) {
+            this.frameIndex = 0;
+        }
         if (this.frameIndex < this.frames.size()) {
             this.matrix = frames.get(this.frameIndex);
         }
