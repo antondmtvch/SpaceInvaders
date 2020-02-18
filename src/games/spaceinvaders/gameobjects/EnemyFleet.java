@@ -100,15 +100,21 @@ public class EnemyFleet {
         }
     }
 
-    public void verifyHit(List<Bullet> bullets) {
+    public int verifyHit(List<Bullet> bullets) {
+        if (bullets.size() == 0) {
+            return 0;
+        }
+        int sumScore = 0;
         for (Bullet bullet : bullets) {
             for (EnemyShip enemyShip : ships) {
                 if (bullet.isCollision(enemyShip) && enemyShip.isAlive && bullet.isAlive) {
                     enemyShip.kill();
                     bullet.kill();
+                    sumScore += enemyShip.score;
                 }
             }
         }
+        return sumScore;
     }
 
     public void deleteHiddenShips() {
