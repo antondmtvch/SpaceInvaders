@@ -61,8 +61,8 @@ public class PlayerShip extends Ship {
         if (this.isAlive) {
             double X = this.x;
             switch (this.direction) {
-                case LEFT: X -= 1; break;
-                case RIGHT: X += 1; break;
+                case LEFT: X--; break;
+                case RIGHT: X++; break;
             }
             if (X < 0) {
                 this.x = 0;
@@ -72,5 +72,9 @@ public class PlayerShip extends Ship {
                 this.x = X;
             }
         }
+    }
+
+    public void win() {
+        super.setStaticView(ShapeMatrix.WIN_PLAYER);
     }
 }
