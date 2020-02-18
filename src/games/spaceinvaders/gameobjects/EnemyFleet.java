@@ -59,6 +59,19 @@ public class EnemyFleet {
         return maxX[0];
     }
 
+    public int getShipsCount() {
+        return ships.size();
+    }
+
+    public double getBottomBorder() {
+        final double[] maxY = {0};
+        ships.forEach(enemyShip -> {
+            double bottomBorder = enemyShip.y + enemyShip.height;
+            if (bottomBorder > maxY[0]) maxY[0] = bottomBorder;
+        });
+        return maxY[0];
+    }
+
     private double getSpeed() {
         return Math.min(2.0, 3.0 / ships.size());
     }
