@@ -39,6 +39,9 @@ public class Ship extends GameObject {
     }
 
     public void setAnimatedView(boolean isLoopAnimation, int[][]... viewFrames) {
+        super.setMatrix(viewFrames[0]);
+        this.frames = Arrays.asList(viewFrames);
+        this.frameIndex = 0;
         this.loopAnimation = isLoopAnimation;
     }
 
