@@ -12,6 +12,6 @@ public class Star extends GameObject {
     }
 
     public void draw(Game game) {
-        game.setCellValueEx((int) this.x, (int) this.y, Color.NONE, STAR_SIGN, Color.YELLOW, 100);
+        game.setCellValueEx((int) x, (int) y, Color.NONE, STAR_SIGN, Color.YELLOW, 100);
     }
 }

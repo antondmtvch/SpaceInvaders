@@ -9,8 +9,8 @@ public class Boss extends EnemyShip {
 
     public Boss(double x, double y) {
         super(x, y);
-        this.score = 100;
-        this.setAnimatedView(true,
+        score = 100;
+        setAnimatedView(true,
                 ShapeMatrix.BOSS_ANIMATION_FIRST,
                 ShapeMatrix.BOSS_ANIMATION_SECOND
         );
@@ -18,19 +18,19 @@ public class Boss extends EnemyShip {
 
     @Override
     public Bullet fire() {
-        if (!this.isAlive) {
+        if (!isAlive) {
             return null;
         }
-        if (this.matrix == ShapeMatrix.BOSS_ANIMATION_FIRST) {
-            return new Bullet(this.x + 6, this.y + this.height, Direction.DOWN);
+        if (matrix == ShapeMatrix.BOSS_ANIMATION_FIRST) {
+            return new Bullet(x + 6, y + height, Direction.DOWN);
         }
-        return new Bullet(this.x, this.y + this.height, Direction.DOWN);
+        return new Bullet(x, y + height, Direction.DOWN);
     }
 
     @Override
     public void kill() {
-        if (this.isAlive) {
-            this.isAlive = false;
+        if (isAlive) {
+            isAlive = false;
             super.setAnimatedView(false,
                     ShapeMatrix.KILL_BOSS_ANIMATION_FIRST,
                     ShapeMatrix.KILL_BOSS_ANIMATION_SECOND,
@@ -41,8 +41,8 @@ public class Boss extends EnemyShip {
 
     @Override
     public void nextFrame() {
-        this.frameCount++;
-        if (frameCount % 10 == 0 || !this.isAlive) {
+        frameCount++;
+        if (frameCount % 10 == 0 || !isAlive) {
             super.nextFrame();
         }
     }

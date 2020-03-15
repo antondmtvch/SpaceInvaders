@@ -16,10 +16,10 @@ public class PlayerShip extends Ship {
     }
 
     public void verifyHit(List<Bullet> bullets) {
-        if (bullets.size() > 0 && this.isAlive) {
+        if (bullets.size() > 0 && isAlive) {
             bullets.forEach(bullet -> {
                 if (bullet.isAlive && isCollision(bullet)) {
-                    this.kill();
+                    kill();
                     bullet.kill();
                 }
             });
@@ -28,7 +28,7 @@ public class PlayerShip extends Ship {
 
     @Override
     public Bullet fire() {
-        if (!this.isAlive) {
+        if (!isAlive) {
             return null;
         }
         return new Bullet( x + 2, y - ShapeMatrix.BULLET.length, Direction.UP);
@@ -36,8 +36,8 @@ public class PlayerShip extends Ship {
 
     @Override
     public void kill() {
-        if (this.isAlive) {
-            this.isAlive = false;
+        if (isAlive) {
+            isAlive = false;
             super.setAnimatedView(false,
                     ShapeMatrix.KILL_PLAYER_ANIMATION_FIRST,
                     ShapeMatrix.KILL_PLAYER_ANIMATION_SECOND,
@@ -49,7 +49,7 @@ public class PlayerShip extends Ship {
 
     public void setDirection(Direction newDirection) {
         if (newDirection != Direction.DOWN) {
-            this.direction = newDirection;
+            direction = newDirection;
         }
     }
 
@@ -58,18 +58,18 @@ public class PlayerShip extends Ship {
     }
 
     public void move() {
-        if (this.isAlive) {
-            double X = this.x;
-            switch (this.direction) {
+        if (isAlive) {
+            double X = x;
+            switch (direction) {
                 case LEFT: X--; break;
                 case RIGHT: X++; break;
             }
             if (X < 0) {
-                this.x = 0;
-            } else if (X + this.width > SpaceInvadersGame.WIDTH) {
-                this.x = SpaceInvadersGame.WIDTH - this.width;
+                x = 0;
+            } else if (X + width > SpaceInvadersGame.WIDTH) {
+                x = SpaceInvadersGame.WIDTH - width;
             } else {
-                this.x = X;
+                x = X;
             }
         }
     }

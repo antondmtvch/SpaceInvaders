@@ -12,17 +12,17 @@ public class Bullet extends GameObject {
         super(x, y);
         super.setMatrix(ShapeMatrix.BULLET);
         if (direction == Direction.UP) {
-            this.dy--;
+            dy--;
         } else {
-            this.dy++;
+            dy++;
         }
     }
 
     public void move() {
-        this.y = this.y + this.dy;
+        y = y + dy;
     }
 
     public void kill() {
-        this.isAlive = false;
+        isAlive = false;
     }
 }

@@ -25,8 +25,8 @@ public class Ship extends GameObject {
 
     public void setStaticView(int[][] viewFrame) {
         super.setMatrix(viewFrame);
-        this.frames = new ArrayList<int[][]>();
-        this.frameIndex = 0;
+        frames = new ArrayList<int[][]>();
+        frameIndex = 0;
         frames.add(viewFrame);
     }
 
@@ -35,28 +35,28 @@ public class Ship extends GameObject {
     }
 
     public void kill() {
-        this.isAlive = false;
+        isAlive = false;
     }
 
     public void setAnimatedView(boolean isLoopAnimation, int[][]... viewFrames) {
         super.setMatrix(viewFrames[0]);
-        this.frames = Arrays.asList(viewFrames);
-        this.frameIndex = 0;
-        this.loopAnimation = isLoopAnimation;
+        frames = Arrays.asList(viewFrames);
+        frameIndex = 0;
+        loopAnimation = isLoopAnimation;
     }
 
     public void nextFrame() {
-        this.frameIndex++;
-        if (this.frameIndex >= this.frames.size() && this.loopAnimation) {
-            this.frameIndex = 0;
+        frameIndex++;
+        if (frameIndex >= frames.size() && loopAnimation) {
+            frameIndex = 0;
         }
-        if (this.frameIndex < this.frames.size()) {
-            this.matrix = frames.get(this.frameIndex);
+        if (frameIndex < frames.size()) {
+            matrix = frames.get(frameIndex);
         }
     }
 
     public boolean isVisible() {
-        return this.isAlive || this.frameIndex < this.frames.size();
+        return isAlive || frameIndex < frames.size();
 
     }
 }

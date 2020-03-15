@@ -14,7 +14,7 @@ public class EnemyShip extends Ship {
 
     @Override
     public Bullet fire() {
-        return new Bullet(this.x + 1, this.y + this.height, Direction.DOWN);
+        return new Bullet(x + 1, y + height, Direction.DOWN);
     }
 
     @Override
@@ -32,13 +32,13 @@ public class EnemyShip extends Ship {
     public void move(Direction direction, double speed) {
         switch (direction) {
             case RIGHT:
-                this.x += speed;
+                x += speed;
                 break;
             case LEFT:
-                this.x -= speed;
+                x -= speed;
                 break;
             case DOWN:
-                this.y += 2.0;
+                y += 2.0;
                 break;
         }
     }
